@@ -7,6 +7,7 @@ class App extends React.Component{
     constructor(){
         super()
         this.state={
+            imageUrl:"",
             firstName:"",
             userName:"",
             emailId:"",
@@ -17,6 +18,7 @@ class App extends React.Component{
         this.changeEmail =this.changeEmail.bind(this)
         this.changePassword =this.changePassword.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
+        this.changeImageUrl = this.changeImageUrl.bind(this)
     }
 
     changeFirstName(event){
@@ -43,10 +45,19 @@ class App extends React.Component{
         })
     }
 
+    changeImageUrl(event){
+        
+        this.setState({
+            imageUrl:URL.createObjectURL(event.target.files[0])
+        })
+        console.log(this.state.imageUrl)
+    }
+
     onSubmit(event){
         event.preventDefault()
 
         const register ={
+            imageUrl: this.state.imageUrl,
             firstName: this.state.firstName,
             userName: this.state.userName,
             emailId: this.state.emailId,
@@ -56,6 +67,7 @@ class App extends React.Component{
         .then(response => console.log(response.data))
 
         this.setState({
+            image:"",
             firstName:"",
             userName:"",
             emailId:"",
@@ -68,6 +80,12 @@ class App extends React.Component{
                 <div className="container">
                     <div className="form-div">
                         <form onSubmit={this.onSubmit}>
+
+                        <input type="file" 
+                            name="profile picture"
+                            onChange={this.changeImageUrl}
+                            className="form-control form-group"></input>
+
                             <input type="text" 
                             placeholder="Full Name"
                             onChange={this.changeFirstName}

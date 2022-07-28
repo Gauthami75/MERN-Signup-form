@@ -9,6 +9,7 @@ router.post('/signup',async (req,res)=>{
     const securePassword =  await bcrypt.hash(req.body.password, saltedPassword)
     
     const signedUser = new signUpTemplateInstance({
+        imageUrl: req.body.imageUrl,
         firstName: req.body.firstName,
         userName:req.body.userName,
         emailId: req.body.emailId,

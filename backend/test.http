@@ -2,6 +2,7 @@ POST http://localhost:4000/app/signup
 Content-Type: application/json
 
 {
+    "imageUrl":"https://play-lh.googleusercontent.com/ZyWNGIfzUyoajtFcD7NhMksHEZh37f-MkHVGr5Yfefa-IX7yj9SMfI82Z7a2wpdKCA=w240-h480-rw",
     "firstName":"Gauthami",
     "userName":"Gaumi",
     "emailId":"gaumi@gmail.com",

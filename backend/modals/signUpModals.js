@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 
 //Creating a schema and include the required input from the fontend.
 const signUpTemplate = new mongoose.Schema({
+    imageUrl:{
+       type:String,
+       required:true
+    },
     firstName:{
         type:String,
         required: true
@@ -24,4 +28,4 @@ const signUpTemplate = new mongoose.Schema({
     }
 })
 
-module.exports =    mongoose.model('myTable', signUpTemplate)
+module.exports =  mongoose.model('myTable', signUpTemplate)
