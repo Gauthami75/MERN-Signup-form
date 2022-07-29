@@ -1,9 +1,12 @@
 import React,{Component} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios'; 
+import Login from './login';
+//import { useRoutes } from "react-router-dom";
+import { BrowserRouter as Router,
+    Route, Redirect, Routes,Link,} from "react-router-dom";
 
 class App extends React.Component{
-
     constructor(){
         super()
         this.state={
@@ -67,7 +70,7 @@ class App extends React.Component{
         .then(response => console.log(response.data))
 
         this.setState({
-            image:"",
+            imageUrl:"",
             firstName:"",
             userName:"",
             emailId:"",
@@ -111,8 +114,9 @@ class App extends React.Component{
                              className="form-control form-group"></input>
 
                              <input type="submit" className="btn btn-primary btn-block form-control form-group" value="Submit"></input>
-
+                            <Link to="/login.jsx">Already have an accout</Link>
                         </form>
+                           
                     </div>
                 </div>
             </div>
