@@ -1,7 +1,7 @@
-POST http://localhost:4000/app/login
+POST http://localhost:4000/app/logout
 Content-Type: application/json
 
-{
-    "emailId":"gauthm@gautham.com",
-    "password":"Gautham@01"
-}
+# {
+#     "emailId":"manu@manu.com",
+#     "password":"Manu@01"
+# }

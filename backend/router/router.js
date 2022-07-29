@@ -3,8 +3,8 @@ const express = require('express')
 const router = express.Router()
 const signUpTemplateInstance = require('../modals/signUpModals')
 const bcrypt = require('bcrypt')
-const { response } = require('express')
-
+const session = require('express-session')
+const cookieParser = require('cookie-parser')
 
 router.post('/signup',async (req,res)=>{
     const saltedPassword = await bcrypt.genSalt(6);
@@ -46,6 +46,8 @@ router.post('/login', async (req,res)=>{
         bcrypt.compare(password,savedUser.password)
         .then((match)=>{
             if(match){
+                const userSession = {emailId: savedUser.emailId} // creating user session to keep user loggedin also on refresh
+                req.session.savedUser = savedUser // attach user session to session object from express-session
                 res.json({message:"Login Successfully"})
             }else{
                 return res.status(422).json({error:"Invalid password"})
@@ -55,23 +57,25 @@ router.post('/login', async (req,res)=>{
             console.log(err)
         })
     })
-        // const existingUser = await signUpTemplateInstance.findOne({emailId})
-        // if(!existingUser){
-        //      return res
-        //     .status(401)
-        //     .json({ errorMessage:"User do not exists"})
-        // }
-        
-        // const passwordVerification = await bcrypt.compare(password, existingUser.password)
-        // if(passwordVerification){
-        //     const userSession = {emailId: existingUser.emailId}
 
-        //     req.session.existingUser = userSession
-        //     return res.status(200).json({msg:"You have logged in successfully"})
-        // }else{
-        //     return res.status(400).json({ msg: 'Invalid credential' })
-        // }
-    
+})
+// cleaning the cookies from the user session
+router.post('/logout', (req,res)=>{
+    req.session.destroy();
+    return res.send("User Logged out")
+    // if (req.session) {
+    // console.log(req.session)
+    // req.session.destroy((error) => {
+    //     if (error){
+    //         res.status(400).json({errorMessage:"Unable to logged  out"})
+    //     } else{
+    //         res.status(200).json({error:"Unable to logged  out"})
+    //     }
+    //     res.status(200).send('Logout Success')
+    //   })
+    // }else{
+    //     res.end()
+    // }
 })
 
 module.exports = router
