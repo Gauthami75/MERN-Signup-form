@@ -33,7 +33,7 @@ router.post('/signup',async (req,res)=>{
 
 router.post('/login', async (req,res)=>{
     const {emailId, password} = req.body
-
+    //const user = signUpTemplateInstance.findOne(emailId: req.body.emailId)
     if(!emailId || !password )
     {
         return res.status(422).json({error:"Please add all fields"})
@@ -63,19 +63,16 @@ router.post('/login', async (req,res)=>{
 router.post('/logout', (req,res)=>{
     req.session.destroy();
     return res.send("User Logged out")
-    // if (req.session) {
-    // console.log(req.session)
-    // req.session.destroy((error) => {
-    //     if (error){
-    //         res.status(400).json({errorMessage:"Unable to logged  out"})
-    //     } else{
-    //         res.status(200).json({error:"Unable to logged  out"})
-    //     }
-    //     res.status(200).send('Logout Success')
-    //   })
-    // }else{
-    //     res.end()
-    // }
 })
 
+
+router.get('/isAuthorised', (req, res) => {
+        if (req.session.savedUser) {
+            return res.json(req.session.savedUser)
+          } else {
+            return res.status(401).json('unauthorize')
+          }
+    
+  })
+  
 module.exports = router
